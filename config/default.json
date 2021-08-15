@@ -1,5 +1,5 @@
 {
-    "port":5002,
+    "port":5000,
     "jwtSecret":"dimasta",
-    "mongoURI": "mongodb+srv://dimas:zasada12@cluster0.gpkx4.mongodb.net/app?retryWrites=true&w=majority"
+    "mongoURI": "mongodb+srv://dimasta:zasada12@cluster0.qjkx2.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
 }
