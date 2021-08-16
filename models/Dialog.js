@@ -12,4 +12,4 @@ const schema = Schema({
     ]
 })
 
-module.exports = model('dialogs' , schema)
+module.exports = model('dialogs' , schema) 

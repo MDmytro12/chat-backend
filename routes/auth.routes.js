@@ -36,13 +36,14 @@ router.post('/register' ,[
 
             const userModel = new User({email , password : hashedPassword})
             
-
             const allUsers = await User.find()
 
-            await allUsers.map( item => {
-              let  dialogItem = new DialogItems({
+            const allDialogs = await allUsers.map( item => {
+              const id = nanoid()
+
+              const dialogItem = {
                 isOnline : false ,
-                dialogId : nanoid(),
+                dialogId : id,
                 from : email , 
                 to : item.email,
                 message : {
@@ -53,20 +54,24 @@ router.post('/register' ,[
                   nameTo : item.email , 
                   nameFrom : email 
                 }
-              })
+              }
 
-              dialogItem.save()
+              let  dialogItemS= new DialogItems(dialogItem)
+
+              dialogItemS.save()
+
+              return dialogItem
             })
 
-            await allUsers.map( item => {
+            await allDialogs.map( item => {
               const dialog = new Dialog({
-                  dialogId : nanoid(),
+                  dialogId : item.dialogId,
                   messages : [] ,
                   isReadedTo : false ,
                   isReadedFrom : false ,
                   sended_at : Date.now()
               })
-
+              
               dialog.save()
             } )
 

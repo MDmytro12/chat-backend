@@ -7,9 +7,11 @@ const io = new Server(server);
 const config = require('config')
 const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
+const cors = require('cors')
 
 const PORT = config.get('port') || 5000
 
+app.use(cors({origin : true}))
 app.use('/auth' , require('./routes/auth.routes'))
 app.use('/acc' , require('./routes/account.routes'))
 
@@ -17,10 +19,10 @@ async function start(){
     try{
         await mongoose.connect(config.get("mongoURI" , {
             useNewUrlParser: true,
-            useUnifiedTopology: true,  
+            useUnifiedTopology: true,   
             useCreateIndex: true
         }));
-        
+         
         app.listen(PORT , () => {
             console.log(`Started on port ${PORT}`)
         })
@@ -31,3 +33,6 @@ async function start(){
 
 start()
 
+io.on( 'connection' , (socket) => {
+    console.log("User connected!    ")
+} )
